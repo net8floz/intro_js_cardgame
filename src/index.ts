@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'production') {
   port = 443;
   server = https.createServer(
     {
-      key: fs.readFileSync(process.env.LE_PRIVKEY_PATH),
-      cert: fs.readFileSync(process.env.LE_CERT_PATH)
+      key: fs.readFileSync('/etc/letsencrypt/live/research.platform.arkive.ai/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/research.platform.arkive.ai/cert.pem')
     },
     app
   );
@@ -25,4 +25,6 @@ app.get('/', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-server.listen(port);
+server.listen(port, () => {
+  console.info(`Started ${process.env.NODE_ENV} server on ${port}`);
+});
