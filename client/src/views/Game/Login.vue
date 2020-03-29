@@ -11,7 +11,7 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component
 export default class LoginView extends Vue {
-  private username = 'net8floz';
+  private username = '';
 
   private join() {
     if (!this.username) {
