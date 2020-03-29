@@ -4,8 +4,8 @@
       <game-viewer />
     </div>
     <div class="viewer-list">
-      {{ currentPokemon }} <br />
-      {{ state }}
+      <!-- {{ currentPokemon }} <br /> -->
+      <!-- {{ state }} -->
       <span v-if="connected">Connected!</span>
       <span v-else>Connecting...</span>
       <div class="title">In Game</div>
