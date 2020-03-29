@@ -1,9 +1,9 @@
 <template>
   <div>
     <canvas ref="game" class="game"></canvas>
-    <div>state: {{ state }}</div>
-    <div>currentPokemon: {{ currentPokemon }}</div>
-    <div>cardCount: {{ cardCount }}</div>
+    <!-- <div>state: {{ state }}</div> -->
+    <!-- <div>currentPokemon: {{ currentPokemon }}</div> -->
+    <!-- <div>cardCount: {{ cardCount }}</div> -->
   </div>
 </template>
 
