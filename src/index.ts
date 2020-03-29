@@ -1,9 +1,28 @@
 import express from 'express';
-const port = 6969;
+import https from 'https';
+import fs from 'fs';
+import http, { Server } from 'http';
+
 const app = express();
- 
-app.get('/', (req, res) => { 
-  res.json({ hello: 'world' });  
+let server: Server;
+let port: number;
+
+if (process.env.NODE_ENV === 'production') {
+  port = 443;
+  server = https.createServer(
+    {
+      key: fs.readFileSync(process.env.LE_PRIVKEY_PATH),
+      cert: fs.readFileSync(process.env.LE_CERT_PATH)
+    },
+    app
+  );
+} else {
+  port = 6969;
+  server = http.createServer(app);
+}
+
+app.get('/', (req, res) => {
+  res.json({ hello: 'world' });
 });
 
-app.listen(port); 
+server.listen(port);
