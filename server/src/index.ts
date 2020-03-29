@@ -6,6 +6,7 @@ import SocketIO from 'socket.io';
 import { host } from './host';
 import { player } from './player';
 import { viewer } from './viewer';
+import { resolve } from 'path';
 
 const app = express();
 
@@ -22,14 +23,25 @@ if (process.env.NODE_ENV === 'production') {
     },
     app
   );
-  app.use(express.static('../client/dist'));
 } else {
   port = 6969;
   server = http.createServer(app);
 }
 
-app.get('/socket.io', (req, res) => res.json({ hello: 'world' }));
+const publicPath = resolve(__dirname, '../../client/dist');
+const staticConf = { maxAge: '1y', etag: false };
 
+app.use(express.static(publicPath, staticConf));
+
+app.all('*', async (_req, res) => {
+  try {
+    res.sendFile(publicPath + '\\index.html');
+  } catch (error) {
+    res.json({ success: false, message: 'Something went wrong' });
+  }
+});
+
+console.log(publicPath + '\\index.html');
 const io = SocketIO(server, { path: '/socket.io' });
 
 io.on('connect', socket => {
