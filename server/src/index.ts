@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 
   app.all('*', async (_req, res) => {
     try {
-      res.sendFile(publicPath + '\\index.html');
+      res.sendFile(publicPath + '/index.html');
     } catch (error) {
       res.json({ success: false, message: 'Something went wrong' });
     }
