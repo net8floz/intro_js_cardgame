@@ -22,14 +22,11 @@ if (process.env.NODE_ENV === 'production') {
     },
     app
   );
+  app.use(express.static('../client/dist'));
 } else {
   port = 6969;
   server = http.createServer(app);
 }
-
-app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
-});
 
 app.get('/socket.io', (req, res) => res.json({ hello: 'world' }));
 
