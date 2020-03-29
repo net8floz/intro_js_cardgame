@@ -12,7 +12,9 @@ export async function host(io: SocketIO.Server, socket: SocketIO.Socket, ack: (s
     },
     generate: (): void => {
       const options = store.get<string[]>('pokeOptions');
-      store.set('currentPokemon', options[Math.floor(Math.random() * (options.length - 1))]);
+      const option = options[Math.round(Math.random() * (options.length - 1))];
+      console.log('option', option);
+      store.set('currentPokemon', option);
       store.set<State>('state', 'answer');
     },
     answer: (): void => {

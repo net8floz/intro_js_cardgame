@@ -6,4 +6,8 @@ export async function viewer(socket: SocketIO.Socket, ack: (data: { state: strin
   const currentPokemon = store.get<string>('currentPokemon');
   ack({ state, cardCount, currentPokemon });
   console.log('Viewer connected');
+
+  store.events.on('currentPokemon', (pokemon: string) => {
+    socket.emit('set-current-pokemon', pokemon);
+  });
 }

@@ -7,7 +7,7 @@ const store = {
   players: [],
   currentPokemon: '',
   state: 'lobby' as State,
-  pokeOptions: ['pikachu', 'charmander'],
+  pokeOptions: ['charmander.png', 'litten.png', 'mudkip.png', 'poppilo.png', 'rowlet.png'],
   playerAnswers: {} as AnswerObject
 };
 

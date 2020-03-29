@@ -45,6 +45,11 @@ export default class GameViewer extends Vue {
     this.game.setState(state);
   }
 
+  @Watch('currentPokemon')
+  private onCurrentPokemonChange(path: string) {
+    this.game.setCurrentPokemon(path);
+  }
+
   private onSocketConnect() {
     this.connected = true;
 
@@ -57,6 +62,13 @@ export default class GameViewer extends Vue {
 
     this.io.on('set-state', (state: State) => {
       this.state = state;
+    });
+
+    this.io.on('set-current-pokemon', (path: string) => {
+      if (!path) {
+        alert('No path');
+      }
+      this.currentPokemon = path;
     });
   }
 

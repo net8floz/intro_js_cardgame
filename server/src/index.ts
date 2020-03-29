@@ -23,25 +23,24 @@ if (process.env.NODE_ENV === 'production') {
     },
     app
   );
+
+  const publicPath = resolve(__dirname, '../../client/dist');
+  const staticConf = { maxAge: '1y', etag: false };
+
+  app.use(express.static(publicPath, staticConf));
+
+  app.all('*', async (_req, res) => {
+    try {
+      res.sendFile(publicPath + '\\index.html');
+    } catch (error) {
+      res.json({ success: false, message: 'Something went wrong' });
+    }
+  });
 } else {
   port = 6969;
   server = http.createServer(app);
 }
 
-const publicPath = resolve(__dirname, '../../client/dist');
-const staticConf = { maxAge: '1y', etag: false };
-
-app.use(express.static(publicPath, staticConf));
-
-app.all('*', async (_req, res) => {
-  try {
-    res.sendFile(publicPath + '\\index.html');
-  } catch (error) {
-    res.json({ success: false, message: 'Something went wrong' });
-  }
-});
-
-console.log(publicPath + '\\index.html');
 const io = SocketIO(server, { path: '/socket.io' });
 
 io.on('connect', socket => {
